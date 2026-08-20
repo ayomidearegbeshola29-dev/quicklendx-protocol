@@ -1,0 +1,25 @@
+name: Justfile help target
+
+# Keeps the developer `just` task runner (issue #2187) honest: the `help`
+# recipe must list recipes, and unknown recipes must fail. Runs on any change
+# to the Justfile so the DX contract can't silently regress.
+on:
+  push:
+    paths:
+      - Justfile
+      - scripts/check-justfile.sh
+  pull_request:
+    paths:
+      - Justfile
+      - scripts/check-justfile.sh
+
+jobs:
+  justfile:
+    name: justfile help contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install just
+        uses: extractions/setup-just@v2
+      - name: Run Justfile checks
+        run: bash scripts/check-justfile.sh

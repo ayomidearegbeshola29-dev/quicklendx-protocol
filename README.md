@@ -50,11 +50,29 @@
   •  docs/PROFIT_SPLIT.md : How platform and investor fees are split.
   •  docs/INDEXING_CONTRACT.md : What the indexer relies on from the Soroban smart contracts — events, topics, data structures, and storage keys.
 
+  ## Developer tooling
+
+  This repo ships a `Justfile` with a self-documenting `help` target. Run it
+  (no arguments, or `just help`) to list every available developer recipe:
+
+  ```bash
+  just            # equivalent to `just help` — lists all recipes
+  just help       # same as above
+  just build      # cargo build --workspace
+  just test       # cargo test --workspace
+  just clippy     # cargo clippy --workspace --all-targets -- -D warnings
+  just fmt-check  # cargo fmt --all -- --check
+  just build-wasm # cargo build --target wasm32-unknown-unknown --release
+  ```
+
+  `scripts/check-justfile.sh` asserts the `help` target lists recipes and that
+  unknown recipes fail; it runs automatically in CI on every Justfile change.
+
   ## Contribution
 
   Please follow the repository guidelines in  AGENTS.md  and include tests for any behavior changes.
 
-### Frontend
+  ### Frontend
 
 ```bash
 cd quicklendx-frontend
